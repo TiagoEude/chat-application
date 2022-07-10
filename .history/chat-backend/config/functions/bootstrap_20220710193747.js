@@ -29,29 +29,29 @@ module.exports = () => {
 
         if (userExists.length > 0) {
           callback(
-            `O usuário ${username} já existe na sala ${room}. Escolha um nome diferente ou sala.`
+            `User ${username} already exists in room no ${room}. Please select a different name or room`
           );
         } else {
           const user = await createUser({
             username: username,
             room: room,
-            status: "ATIVO",
+            status: "ONLINE",
             socketId: socket.id,
           });
 
           if (user) {
             socket.join(user.room);
             socket.emit("welcome", {
-              user: "Robô",
-              text: `${user.username}, Bem-Vindo a sala ${user.room}.`,
+              user: "bot",
+              text: `${user.username}, Welcome to room ${user.room}.`,
               userData: user,
             });
             socket.broadcast.to(user.room).emit("message", {
-              user: "Robô",
-              text: `${user.username} entrou na sala.`,
+              user: "bot",
+              text: `${user.username} has joined`,
             });
           } else {
-            callback(`O usuáio ${username} não pode ser criado.`);
+            callback(`user could not be created. Try again!`);
           }
         }
         callback();

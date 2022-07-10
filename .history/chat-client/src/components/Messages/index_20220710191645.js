@@ -16,8 +16,8 @@ function Messages(props) {
     <StyledMessages>
       <ScrollToBottom>
         {messages.map((message, index) => (
-          <div key={index}>
-            <Message message={message} username={username} />
+          <div>
+            <Message key={index} message={message} username={username} />
           </div>
         ))}
       </ScrollToBottom>

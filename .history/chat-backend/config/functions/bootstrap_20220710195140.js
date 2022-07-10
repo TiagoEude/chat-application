@@ -51,7 +51,7 @@ module.exports = () => {
               text: `${user.username} entrou na sala.`,
             });
           } else {
-            callback(`O usuáio ${username} não pode ser criado.`);
+            callback(`O usuáio ${username} não foi criado.`);
           }
         }
         callback();

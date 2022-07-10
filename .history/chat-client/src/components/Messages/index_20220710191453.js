@@ -12,16 +12,6 @@ const StyledMessages = styled.div`
 function Messages(props) {
   const { messages, username } = props;
 
-  return (
-    <StyledMessages>
-      <ScrollToBottom>
-        {messages.map((message, index) => (
-          <div key={index}>
-            <Message message={message} username={username} />
-          </div>
-        ))}
-      </ScrollToBottom>
-    </StyledMessages>
-  );
+  return <StyledMessages></StyledMessages>;
 }
 export default Messages;
