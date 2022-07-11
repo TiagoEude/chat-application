@@ -51,7 +51,7 @@ function ChatRoom(props) {
       );
       setMessage("");
     } else {
-      alert("A mensagem nao pode ser vazia.");
+      alert("Message can't be empty");
     }
   };
 

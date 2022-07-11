@@ -15,7 +15,6 @@ import {
 
 function ChatRoom(props) {
   const { username, room, joinData } = props;
-  const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
 
@@ -51,7 +50,7 @@ function ChatRoom(props) {
       );
       setMessage("");
     } else {
-      alert("A mensagem nao pode ser vazia.");
+      alert("Message can't be empty");
     }
   };
 

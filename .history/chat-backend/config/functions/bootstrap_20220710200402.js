@@ -63,18 +63,7 @@ module.exports = () => {
     socket.on("sendMessage", async (data, callback) => {
       try {
         const user = await userExists(data.userId);
-        if (user) {
-          io.to(user.room).emit("message", {
-            user: user.username,
-            text: data.message,
-          });
-        } else {
-          callback(`O usuário ${data.userId} não existe.`);
-        }
-        callback();
-      } catch (error) {
-        console.log("Erro ao enviar mensagem", error);
       }
-    });
+    })
   });
 };

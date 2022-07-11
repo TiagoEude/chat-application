@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Input } from "antd";
 import { socket } from "../../config/web-sockets";
 import { history } from "../../config/network";
 import Header from "../../components/Header";
@@ -15,7 +14,6 @@ import {
 
 function ChatRoom(props) {
   const { username, room, joinData } = props;
-  const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
 
@@ -33,28 +31,6 @@ function ChatRoom(props) {
   const handleChange = (e) => {
     setMessage(e.target.value);
   };
-  const handleClick = (e) => {
-    sendMessage(message);
-  };
-
-  const sendMessage = (message) => {
-    if (message) {
-      socket.emit(
-        "sendMessage",
-        { userId: joinData.userData.id, message },
-        (error) => {
-          if (error) {
-            alert(error);
-            history.push("/join");
-          }
-        }
-      );
-      setMessage("");
-    } else {
-      alert("A mensagem nao pode ser vazia.");
-    }
-  };
-
   return (
     <ChatContainer>
       <Header room={room} />

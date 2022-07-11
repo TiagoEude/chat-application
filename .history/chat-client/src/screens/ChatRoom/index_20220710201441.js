@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Input } from "antd";
 import { socket } from "../../config/web-sockets";
 import { history } from "../../config/network";
 import Header from "../../components/Header";
@@ -15,7 +14,6 @@ import {
 
 function ChatRoom(props) {
   const { username, room, joinData } = props;
-  const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
 
@@ -51,10 +49,9 @@ function ChatRoom(props) {
       );
       setMessage("");
     } else {
-      alert("A mensagem nao pode ser vazia.");
+      alert("Message can't be empty");
     }
   };
-
   return (
     <ChatContainer>
       <Header room={room} />
