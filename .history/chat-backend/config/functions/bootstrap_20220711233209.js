@@ -45,7 +45,7 @@ module.exports = () => {
             socketId: socket.id,
           });
 
-          if (user) {
+          if ( ) {
             socket.join(user.room);
             socket.emit("welcome", {
               user: "Robô",

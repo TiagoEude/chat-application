@@ -89,7 +89,6 @@ module.exports = () => {
 
     socket.on("disconnect", async (data) => {
       try {
-        console.table(data);
         console.log("Usuário desconectou.", data);
         const user = await deleteUser(socket.id);
         console.log("Usuário deletado.", user);

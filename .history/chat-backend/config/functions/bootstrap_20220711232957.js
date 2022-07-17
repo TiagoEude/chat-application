@@ -45,7 +45,7 @@ module.exports = () => {
             socketId: socket.id,
           });
 
-          if (user) {
+          if ( ) {
             socket.join(user.room);
             socket.emit("welcome", {
               user: "Robô",
@@ -89,7 +89,7 @@ module.exports = () => {
 
     socket.on("disconnect", async (data) => {
       try {
-        console.table(data);
+        console.table(data)
         console.log("Usuário desconectou.", data);
         const user = await deleteUser(socket.id);
         console.log("Usuário deletado.", user);

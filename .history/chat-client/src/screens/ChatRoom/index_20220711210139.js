@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { Input } from "antd";
 import { socket } from "../../config/web-sockets";
 import { history } from "../../config/network";
@@ -26,7 +27,7 @@ function ChatRoom(props) {
         setMessages((msgs) => [...msgs, message]);
       });
       socket.on("roomInfo", (users) => {
-        setUsers(users.users);
+        setUsers(users);
       });
     } else {
       history.push("/join");
@@ -62,7 +63,7 @@ function ChatRoom(props) {
     <ChatContainer>
       <Header room={room} />
       <StyledContainer>
-        <List users={users.users} />
+        <List users={users} />
         <ChatBox>
           <Messages messages={messages} username={username} />
           <Input

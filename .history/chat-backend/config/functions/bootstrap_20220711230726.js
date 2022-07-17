@@ -44,26 +44,27 @@ module.exports = () => {
             status: "ATIVO",
             socketId: socket.id,
           });
-
-          if (user) {
-            socket.join(user.room);
-            socket.emit("welcome", {
-              user: "Robô",
-              text: `${user.username}, Bem-Vindo a sala ${user.room}.`,
-              userData: user,
-            });
-            socket.broadcast.to(user.room).emit("message", {
-              user: "Robô",
-              text: `${user.username} entrou na sala.`,
-            });
-            io.to(user.room).emit("roomInfo", {
-              room: user.room,
-              users: getUsersInRoom(user.room),
-            });
-          } else {
-            callback(`O usuáio ${username} não pode ser criado.`);
-          }
         }
+
+        if (user) {
+          socket.join(user.room);
+          socket.emit("welcome", {
+            user: "Robô",
+            text: `${user.username}, Bem-Vindo a sala ${user.room}.`,
+            userData: user,
+          });
+          socket.broadcast.to(user.room).emit("message", {
+            user: "Robô",
+            text: `${user.username} entrou na sala.`,
+          });
+          io.to(user.room).emit("roomInfo", {
+            room: user.room,
+            users: getUsersInRoom(user.room),
+          });
+        } else {
+          callback(`O usuáio ${username} não pode ser criado.`);
+        }
+
         callback();
       } catch (err) {
         console.log("Ocorreu um erro.", err);
@@ -89,7 +90,6 @@ module.exports = () => {
 
     socket.on("disconnect", async (data) => {
       try {
-        console.table(data);
         console.log("Usuário desconectou.", data);
         const user = await deleteUser(socket.id);
         console.log("Usuário deletado.", user);

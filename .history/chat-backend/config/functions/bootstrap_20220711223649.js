@@ -58,7 +58,7 @@ module.exports = () => {
             });
             io.to(user.room).emit("roomInfo", {
               room: user.room,
-              users: getUsersInRoom(user.room),
+              users: getUsersInRoom(user.room.toString()),
             });
           } else {
             callback(`O usuáio ${username} não pode ser criado.`);
@@ -84,27 +84,6 @@ module.exports = () => {
         callback();
       } catch (error) {
         console.log("Erro ao enviar mensagem", error);
-      }
-    });
-
-    socket.on("disconnect", async (data) => {
-      try {
-        console.table(data);
-        console.log("Usuário desconectou.", data);
-        const user = await deleteUser(socket.id);
-        console.log("Usuário deletado.", user);
-        if (user.length > 0) {
-          io.to(user[0].room).emit("message", {
-            user: user[0].username,
-            text: `${user[0].username} saiu da sala.`,
-          });
-          io.to(user[0].room).emit("roomInfo", {
-            room: user[0].room,
-            users: await getUsersInRoom(user[0].room),
-          });
-        }
-      } catch (error) {
-        console.log("Erro ao desconectar usuário.", error);
       }
     });
   });

@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "users",
   "info": {
-    "name": "users"
+    "name": "users",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -20,7 +21,7 @@
     "room": {
       "type": "string"
     },
-    "socketid": {
+    "socketId": {
       "type": "biginteger"
     }
   }

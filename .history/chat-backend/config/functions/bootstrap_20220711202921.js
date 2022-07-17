@@ -15,7 +15,6 @@ const {
   createUser,
   userExists,
   getUsersInRoom,
-  deleteUser,
 } = require("./utils/database");
 
 module.exports = () => {
@@ -56,17 +55,13 @@ module.exports = () => {
               user: "Robô",
               text: `${user.username} entrou na sala.`,
             });
-            io.to(user.room).emit("roomInfo", {
-              room: user.room,
-              users: getUsersInRoom(user.room),
-            });
           } else {
             callback(`O usuáio ${username} não pode ser criado.`);
           }
         }
         callback();
       } catch (err) {
-        console.log("Ocorreu um erro.", err);
+        console.log("Err occured, Try again!", err);
       }
     });
 
@@ -78,33 +73,16 @@ module.exports = () => {
             user: user.username,
             text: data.message,
           });
+          io.to(user.room).emit("roomInfo", {
+            room: user.room,
+            users: getUsersInRoom(user.room),
+          });
         } else {
           callback(`O usuário ${data.userId} não existe.`);
         }
         callback();
       } catch (error) {
         console.log("Erro ao enviar mensagem", error);
-      }
-    });
-
-    socket.on("disconnect", async (data) => {
-      try {
-        console.table(data);
-        console.log("Usuário desconectou.", data);
-        const user = await deleteUser(socket.id);
-        console.log("Usuário deletado.", user);
-        if (user.length > 0) {
-          io.to(user[0].room).emit("message", {
-            user: user[0].username,
-            text: `${user[0].username} saiu da sala.`,
-          });
-          io.to(user[0].room).emit("roomInfo", {
-            room: user[0].room,
-            users: await getUsersInRoom(user[0].room),
-          });
-        }
-      } catch (error) {
-        console.log("Erro ao desconectar usuário.", error);
       }
     });
   });

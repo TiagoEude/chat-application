@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { Input } from "antd";
 import { socket } from "../../config/web-sockets";
 import { history } from "../../config/network";
@@ -17,7 +18,7 @@ function ChatRoom(props) {
   const { username, room, joinData } = props;
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState();
 
   useEffect(() => {
     if (Object.keys(joinData).length > 0) {
@@ -26,7 +27,7 @@ function ChatRoom(props) {
         setMessages((msgs) => [...msgs, message]);
       });
       socket.on("roomInfo", (users) => {
-        setUsers(users.users);
+        setUsers(users);
       });
     } else {
       history.push("/join");

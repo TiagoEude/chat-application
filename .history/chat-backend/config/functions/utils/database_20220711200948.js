@@ -10,10 +10,10 @@ async function findUser(username, room) {
 async function createUser({ username, room, status, socketId }) {
   try {
     const user = await strapi.services.users.create({
-      username: username,
-      room: room,
+      username,
+      room,
       status: status,
-      socketId: socketId,
+      socketId,
     });
     return user;
   } catch (error) {
@@ -39,19 +39,9 @@ async function getUsersInRoom(room) {
   }
 }
 
-async function deleteUser(socketId) {
-  try {
-    const user = await strapi.services.users.delete({ socketId: socketId });
-    return user;
-  } catch (error) {
-    console.log("Erro ao deletar usuário.", error);
-  }
-}
-
 module.exports = {
   findUser,
   createUser,
   userExists,
   getUsersInRoom,
-  deleteUser,
 };
